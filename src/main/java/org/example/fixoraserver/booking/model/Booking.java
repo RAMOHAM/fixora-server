@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "bookings")
 public class Booking {
 
     @Id
@@ -26,6 +27,9 @@ public class Booking {
 
     @Column(nullable = false)
     private LocalDate date;
+
+    @Column(nullable = false)
+    private String preferredWindow;
 
     private LocalDateTime createdAt;
 }
