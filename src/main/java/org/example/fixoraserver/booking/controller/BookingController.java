@@ -5,6 +5,7 @@ import org.example.fixoraserver.booking.model.Booking;
 import org.example.fixoraserver.booking.service.BookingService;
 import org.example.fixoraserver.email.BookingEmailService;
 import org.example.fixoraserver.email.EmailService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
