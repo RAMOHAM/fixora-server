@@ -1,11 +1,9 @@
 package org.example.fixoraserver.booking.controller;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.example.fixoraserver.booking.model.Booking;
 import org.example.fixoraserver.booking.service.BookingService;
-import org.example.fixoraserver.email.BookingEmailService;
-import org.example.fixoraserver.email.EmailService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +18,7 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+    public ResponseEntity<@NonNull Booking> createBooking(@RequestBody Booking booking) {
         Booking newBooking = bookingService.createBooking(booking);
         return ResponseEntity.status(HttpStatus.CREATED).body(newBooking);
     }
