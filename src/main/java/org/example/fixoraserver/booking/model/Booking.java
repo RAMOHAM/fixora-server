@@ -1,17 +1,22 @@
 package org.example.fixoraserver.booking.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
     private String jobDescription;
@@ -23,13 +28,22 @@ public class Booking {
     private String address;
 
     @Column(nullable = false)
-    private String phoneNumber;
+    private String phone;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private String dateOfJob;
 
     @Column(nullable = false)
     private String preferredWindow;
 
+    @Column(nullable = false)
+    private String category;
+
+    @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
