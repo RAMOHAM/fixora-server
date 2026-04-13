@@ -1,4 +1,4 @@
-package org.example.fixoraserver.booking.model;
+package org.example.fixoraserver.booking;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

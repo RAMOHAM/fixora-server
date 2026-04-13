@@ -1,6 +1,6 @@
 package org.example.fixoraserver.email
 import com.resend.services.emails.model.CreateEmailOptions
-import org.example.fixoraserver.booking.model.Booking
+import org.example.fixoraserver.booking.Booking
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 

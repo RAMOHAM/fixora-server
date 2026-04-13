@@ -1,8 +1,6 @@
-package org.example.fixoraserver.booking.service;
+package org.example.fixoraserver.booking;
 
 import lombok.RequiredArgsConstructor;
-import org.example.fixoraserver.booking.model.Booking;
-import org.example.fixoraserver.booking.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
 @Service

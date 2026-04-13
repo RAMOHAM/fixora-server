@@ -1,9 +1,7 @@
-package org.example.fixoraserver.booking.controller;
+package org.example.fixoraserver.booking;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.example.fixoraserver.booking.model.Booking;
-import org.example.fixoraserver.booking.service.BookingService;
 import org.example.fixoraserver.email.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
