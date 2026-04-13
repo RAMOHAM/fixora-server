@@ -1,9 +1,7 @@
 package org.example.fixoraserver.booking;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -45,5 +43,33 @@ public class Booking {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDateOfJob() {
+        return dateOfJob;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPreferredWindow() {
+        return preferredWindow;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }

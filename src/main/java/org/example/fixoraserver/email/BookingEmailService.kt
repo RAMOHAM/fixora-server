@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service
 @Service
 class BookingEmailService : EmailService<Booking> {
 
-    @Value("\${resend.api.key}\"")
-    lateinit var resendApiKey : String
-    @Value("\${resend.from.email}")
-    lateinit var resendFromEmail : String
+    @Value("\${resend.api.key}")
+    lateinit var resendApiKey: String
 
-    private val resend = com.resend.Resend(resendApiKey)
+    @Value("\${resend.from.email}")
+    lateinit var resendFromEmail: String
+
+    private val resend: com.resend.Resend by lazy {
+        com.resend.Resend(resendApiKey)
+    }
 
     override fun sendEmail(emailTemplate: String, toEmail: String){
         val emailParms = CreateEmailOptions.builder().
@@ -26,7 +29,7 @@ class BookingEmailService : EmailService<Booking> {
     }
 
     override fun createEmailTemplate(data: Booking): String {
-        return $$"""
+        return """
         <!DOCTYPE html>
         <html>
         <body style="background-color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
@@ -41,15 +44,14 @@ class BookingEmailService : EmailService<Booking> {
 
                   <h2 style="font-size:1.8em;font-weight:600">Your Booking Details</h2>
                   <p>
-                    <strong>Service Category:</strong> ${booking.category}<br/>
-                    <strong>Preferred Time Window:</strong> ${booking.preferredWindow}<br/>
-                    <strong>Date of Job:</strong> ${booking.dateOfJob}<br/>
-                    <strong>Service Address:</strong> ${booking.address}<br/>
-                    <strong>Job Description:</strong> ${booking.jobDescription}
+                    <strong>Service Category:</strong> ${data.getCategory()}<br/>
+                    <strong>Preferred Time Window:</strong> ${data.getPreferredWindow()}<br/>
+                    <strong>Date of Job:</strong> ${data.getDateOfJob()}<br/>
+                    <strong>Job Description:</strong> ${data.getJobDescription()}<br/>
                   </p>
 
                   <h3 style="font-size:1.4em;font-weight:600">What Happens Next?</h3>
-                  <p>Our team will review your request and contact you at <strong>${booking.phone}</strong> or reply to this email to confirm your appointment and provide a quote.</p>
+                  <p>Our team will review your request and contact you by email to confirm your appointment and provide a quote.</p>
 
                   <p>If you have any questions, feel free to reply directly to this email. We look forward to helping you.</p>
 
