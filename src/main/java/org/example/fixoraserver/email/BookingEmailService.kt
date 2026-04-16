@@ -1,11 +1,11 @@
 package org.example.fixoraserver.email
 import com.resend.services.emails.model.CreateEmailOptions
-import org.example.fixoraserver.booking.Booking
+import org.example.fixoraserver.booking.dto.BookingRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class BookingEmailService : EmailService<Booking> {
+class BookingEmailService : EmailService<BookingRequest> {
 
     @Value("\${resend.api.key}")
     lateinit var resendApiKey: String
@@ -28,7 +28,7 @@ class BookingEmailService : EmailService<Booking> {
         resend.emails().send(emailParms)
     }
 
-    override fun createEmailTemplate(data: Booking): String {
+    override fun createEmailTemplate(data: BookingRequest): String {
         return """
         <!DOCTYPE html>
         <html>
@@ -44,10 +44,10 @@ class BookingEmailService : EmailService<Booking> {
 
                   <h2 style="font-size:1.8em;font-weight:600">Your Booking Details</h2>
                   <p>
-                    <strong>Service Category:</strong> ${data.getCategory()}<br/>
-                    <strong>Preferred Time Window:</strong> ${data.getPreferredWindow()}<br/>
-                    <strong>Date of Job:</strong> ${data.getDateOfJob()}<br/>
-                    <strong>Job Description:</strong> ${data.getJobDescription()}<br/>
+                    <strong>Service Category:</strong> ${data.category()}<br/>
+                    <strong>Preferred Time Window:</strong> ${data.preferredWindow()}<br/>
+                    <strong>Date of Job:</strong> ${data.dateOfJob()}<br/>
+                    <strong>Job Description:</strong> ${data.jobDescription()}<br/>
                   </p>
 
                   <h3 style="font-size:1.4em;font-weight:600">What Happens Next?</h3>

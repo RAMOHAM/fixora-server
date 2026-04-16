@@ -25,11 +25,15 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    implementation("org.mapstruct:mapstruct:1.6.3")
+
+
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly ("org.postgresql:postgresql")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 
     implementation("com.resend:resend-java:3.1.0")
     implementation(kotlin("stdlib-jdk8"))

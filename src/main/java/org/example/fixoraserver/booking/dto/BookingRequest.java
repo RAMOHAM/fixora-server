@@ -7,5 +7,5 @@ public record BookingRequest (
         String phone,
         String dateOfJob,
         String preferredWindow,
-        String category,
+        String category
 ){}
