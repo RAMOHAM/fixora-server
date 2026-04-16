@@ -6,6 +6,8 @@ import org.example.fixoraserver.booking.dto.BookingRequest;
 import org.example.fixoraserver.booking.dto.BookingResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BookingService {
@@ -16,5 +18,9 @@ public class BookingService {
         Booking mappedBooking = bookingMapper.toEntity(bookingRequest);
         Booking savedBooking = bookingRepository.save(mappedBooking);
         return bookingMapper.toResponse(savedBooking);
+    }
+
+    public List<BookingResponse> getAllBookings() {
+        return bookingRepository.findAll().stream().map(bookingMapper::toResponse).toList();
     }
 }

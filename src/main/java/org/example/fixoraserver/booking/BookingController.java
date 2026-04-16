@@ -9,25 +9,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/booking")
 @RequiredArgsConstructor
 public class BookingController {
     private final BookingService bookingService;
-    private final EmailService<Booking> emailService;
+    private final EmailService<BookingRequest> emailService;
 
     @PostMapping
     public ResponseEntity<@NonNull BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
         BookingResponse newBooking = bookingService.createBooking(bookingRequest);
         // email a client after booking is created
-        String bookingEmailTemplate = emailService.createEmailTemplate(newBooking);
+        String bookingEmailTemplate = emailService.createEmailTemplate(bookingRequest);
         emailService.sendEmail(bookingEmailTemplate, newBooking.email());
         return ResponseEntity.status(HttpStatus.CREATED).body(newBooking);
     }
 
     @GetMapping
-    public ResponseEntity<@NonNull Booking> getAllBookings(){
-        // TODO get all bookings
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+    public ResponseEntity<@NonNull List<BookingResponse>> getAllBookings(){
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.getAllBookings());
     }
 }
