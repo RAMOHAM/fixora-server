@@ -1,5 +1,7 @@
 package org.example.fixoraserver.booking.dto;
 
+import org.example.fixoraserver.booking.BookingStatus;
+
 public record BookingResponse (
         String jobDescription,
         String email,
@@ -7,5 +9,6 @@ public record BookingResponse (
         String phone,
         String dateOfJob,
         String preferredWindow,
-        String category
+        String category,
+        BookingStatus bookingStatus
 ){}
