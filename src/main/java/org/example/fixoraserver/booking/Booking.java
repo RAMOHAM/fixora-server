@@ -37,39 +37,16 @@ public class Booking {
     @Column(nullable = false)
     private String category;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookingStatus bookingStatus;
+
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getDateOfJob() {
-        return dateOfJob;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPreferredWindow() {
-        return preferredWindow;
-    }
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public String getPhone() {
-        return phone;
+        this.bookingStatus = BookingStatus.PENDING;
     }
 }
