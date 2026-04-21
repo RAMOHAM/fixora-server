@@ -1,12 +1,14 @@
 package org.example.fixoraserver.email
 import com.resend.services.emails.model.CreateEmailOptions
 import org.example.fixoraserver.booking.dto.BookingRequest
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
 open class BookingEmailService : EmailService<BookingRequest> {
+    private val log = LoggerFactory.getLogger(BookingEmailService::class.java);
 
     @Value("\${resend.api.key}")
     lateinit var resendApiKey: String
@@ -20,14 +22,20 @@ open class BookingEmailService : EmailService<BookingRequest> {
 
     @Async("emailTaskExecutor")
     override fun sendEmail(emailTemplate: String, toEmail: String){
-        val emailParms = CreateEmailOptions.builder().
+        try{
+            val emailParms = CreateEmailOptions.builder().
             from(resendFromEmail).
             to(toEmail).
             subject("Booking Confirmation").
             html(emailTemplate).
             build()
 
-        resend.emails().send(emailParms)
+            resend.emails().send(emailParms)
+            log.info("Booking Email Service : Email sent successfully")
+        }catch(e: Exception){
+            log.error("Booking Email Service : Error sending email: ${e.message}")
+        }
+
     }
 
     override fun createEmailTemplate(data: BookingRequest): String {

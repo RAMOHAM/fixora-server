@@ -1,6 +1,7 @@
 package org.example.fixoraserver.booking;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.fixoraserver.booking.dto.BookingMapper;
 import org.example.fixoraserver.booking.dto.BookingRequest;
 import org.example.fixoraserver.booking.dto.BookingResponse;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookingService {
@@ -17,6 +19,7 @@ public class BookingService {
     public BookingResponse createBooking(BookingRequest bookingRequest) {
         Booking mappedBooking = bookingMapper.toEntity(bookingRequest);
         Booking savedBooking = bookingRepository.save(mappedBooking);
+        log.info("Booking created: {}", savedBooking.getId());
         return bookingMapper.toResponse(savedBooking);
     }
 
