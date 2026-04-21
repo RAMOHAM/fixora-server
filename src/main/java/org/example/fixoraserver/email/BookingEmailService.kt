@@ -2,10 +2,11 @@ package org.example.fixoraserver.email
 import com.resend.services.emails.model.CreateEmailOptions
 import org.example.fixoraserver.booking.dto.BookingRequest
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 @Service
-class BookingEmailService : EmailService<BookingRequest> {
+open class BookingEmailService : EmailService<BookingRequest> {
 
     @Value("\${resend.api.key}")
     lateinit var resendApiKey: String
@@ -17,6 +18,7 @@ class BookingEmailService : EmailService<BookingRequest> {
         com.resend.Resend(resendApiKey)
     }
 
+    @Async("emailTaskExecutor")
     override fun sendEmail(emailTemplate: String, toEmail: String){
         val emailParms = CreateEmailOptions.builder().
             from(resendFromEmail).
