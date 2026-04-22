@@ -35,7 +35,6 @@ open class BookingEmailService : EmailService<BookingRequest> {
         }catch(e: Exception){
             log.error("Booking Email Service : Error sending email: ${e.message}")
         }
-
     }
 
     override fun createEmailTemplate(data: BookingRequest): String {
