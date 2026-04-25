@@ -44,6 +44,9 @@ public class Booking {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Column
+    private String videoInput;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

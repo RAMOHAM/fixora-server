@@ -10,5 +10,6 @@ public record BookingResponse (
         String dateOfJob,
         String preferredWindow,
         String category,
+        String videoInput,
         BookingStatus bookingStatus
 ){}
