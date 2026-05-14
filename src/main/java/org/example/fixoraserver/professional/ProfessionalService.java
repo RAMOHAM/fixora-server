@@ -5,6 +5,8 @@ import org.example.fixoraserver.professional.dto.ProfessionalMapper;
 import org.example.fixoraserver.professional.dto.ProfessionalRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ProfessionalService {
@@ -13,5 +15,9 @@ public class ProfessionalService {
 
     public void addProfessional(ProfessionalRequest professional) {
         professionalRepository.save(professionalMapper.toEntity(professional));
+    }
+
+    public List<ProfessionalRequest> getAllProfessionals() {
+        return professionalRepository.findAll().stream().map(professionalMapper::toDTO).toList();
     }
 }

@@ -6,4 +6,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ProfessionalMapper {
     Professional toEntity(ProfessionalRequest professionalRequest);
+    ProfessionalRequest toDTO(Professional professional);
 }
