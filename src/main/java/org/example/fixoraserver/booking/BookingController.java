@@ -31,4 +31,14 @@ public class BookingController {
     public ResponseEntity<@NonNull List<BookingResponse>> getAllBookings(){
         return ResponseEntity.status(HttpStatus.OK).body(bookingService.getAllBookings());
     }
+
+    @PutMapping("/confirmation")
+    public ResponseEntity<@NonNull BookingResponse> confirmBooking(@RequestBody BookingRequest bookingRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.changeBookingStatus(bookingRequest.id(), BookingStatus.CONFIRMED));
+    }
+
+    @PutMapping("/cancellation")
+    public ResponseEntity<@NonNull BookingResponse> cancelBooking(@RequestBody BookingRequest bookingRequest){
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.changeBookingStatus(bookingRequest.id(), BookingStatus.CANCELLED));
+    }
 }

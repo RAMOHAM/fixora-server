@@ -26,4 +26,10 @@ public class BookingService {
     public List<BookingResponse> getAllBookings() {
         return bookingRepository.findAll().stream().map(bookingMapper::toResponse).toList();
     }
+
+    public BookingResponse changeBookingStatus(String bookingId, BookingStatus status) {
+        Booking booking = bookingRepository.findById(Long.valueOf(bookingId)).orElseThrow();
+        booking.setBookingStatus(status);
+        return bookingMapper.toResponse(bookingRepository.save(booking));
+    }
 }
