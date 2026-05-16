@@ -24,8 +24,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation("org.mapstruct:mapstruct:1.6.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

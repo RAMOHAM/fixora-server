@@ -1,0 +1,21 @@
+spring.application.name=fixora-server
+spring.datasource.url=jdbc:postgresql://localhost:5432/fixora
+spring.datasource.username=localuser
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.properties.hibernate.default_schema=fixora
+
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+resend.api.key=replace-with-resend-api-key
+resend.from.email=onboarding@resend.dev
+app.cors.allowed-origins=http://localhost:3000
+
+fixora.admin.id=fixora-admin
+fixora.admin.email=admin@example.com
+fixora.admin.password=password
+fixora.admin.full-name=Fixora Admin
+fixora.jwt.secret=replace-this-with-a-long-random-secret-for-production
+fixora.jwt.access-token-ttl-seconds=3600
