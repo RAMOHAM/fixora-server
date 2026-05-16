@@ -27,11 +27,10 @@ public class JwtService {
     private final long accessTokenTtlSeconds;
 
     public JwtService(
-            ObjectMapper objectMapper,
             @Value("${fixora.jwt.secret}") String jwtSecret,
             @Value("${fixora.jwt.access-token-ttl-seconds}") long accessTokenTtlSeconds
     ) {
-        this.objectMapper = objectMapper;
+        this.objectMapper = new ObjectMapper();
         this.secret = jwtSecret.getBytes(StandardCharsets.UTF_8);
         this.accessTokenTtlSeconds = accessTokenTtlSeconds;
     }
