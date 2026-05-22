@@ -21,7 +21,7 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<@NonNull BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
         BookingResponse newBooking = bookingService.createBooking(bookingRequest);
-        String bookingEmailTemplate = emailService.createEmailTemplate(toEmailRequest(newBooking));
+        String bookingEmailTemplate = emailService.createEmailTemplate(bookingService.toEmailRequest(newBooking));
         emailService.sendEmail(bookingEmailTemplate, newBooking.email());
         return ResponseEntity.status(HttpStatus.CREATED).body(newBooking);
     }
@@ -32,34 +32,14 @@ public class BookingController {
     }
 
     @PatchMapping("/{id}/confirm")
-    public ResponseEntity<@NonNull BookingResponse> confirmBookingById(@PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.OK).body(updateBookingStatus(id, BookingStatus.CONFIRMED));
+    public ResponseEntity<@NonNull BookingResponse> confirmBookingById(@PathVariable String id, @RequestParam String professionalId) {
+        bookingService.updateBookingStatus(id, BookingStatus.CONFIRMED);
+        BookingResponse updatedBooking = bookingService.assignProfessionalToBooking(id, professionalId);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedBooking);
     }
 
     @PatchMapping("/{id}/cancel")
     public ResponseEntity<@NonNull BookingResponse> cancelBookingById(@PathVariable String id) {
-        return ResponseEntity.status(HttpStatus.OK).body(updateBookingStatus(id, BookingStatus.CANCELLED));
-    }
-
-    private BookingResponse updateBookingStatus(String bookingId, BookingStatus status) {
-        BookingResponse updatedBooking = bookingService.changeBookingStatus(bookingId, status);
-        String bookingEmailTemplate = emailService.createEmailTemplate(toEmailRequest(updatedBooking));
-        emailService.sendEmail(bookingEmailTemplate, updatedBooking.email());
-        return updatedBooking;
-    }
-
-    private BookingRequest toEmailRequest(BookingResponse booking) {
-        return new BookingRequest(
-                booking.id(),
-                booking.jobDescription(),
-                booking.email(),
-                booking.address(),
-                booking.phone(),
-                booking.dateOfJob(),
-                booking.preferredWindow(),
-                booking.category(),
-                booking.bookingStatus().name(),
-                booking.videoInput()
-        );
+        return ResponseEntity.status(HttpStatus.OK).body(bookingService.updateBookingStatus(id, BookingStatus.CANCELLED));
     }
 }

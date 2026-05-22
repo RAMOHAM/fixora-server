@@ -2,6 +2,7 @@ package org.example.fixoraserver.booking;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.fixoraserver.professional.Professional;
 
 import java.time.LocalDateTime;
 
@@ -46,6 +47,10 @@ public class Booking {
 
     @Column
     private String videoInput;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professional_id")
+    private Professional professional;
 
     @PrePersist
     protected void onCreate() {

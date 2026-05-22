@@ -17,6 +17,10 @@ public class ProfessionalService {
         professionalRepository.save(professionalMapper.toEntity(professional));
     }
 
+    public Professional getProfessionalById(String id) {
+        return professionalRepository.findById(Long.valueOf(id)).orElse(null);
+    }
+
     public List<ProfessionalRequest> getAllProfessionals() {
         return professionalRepository.findAll().stream().map(professionalMapper::toDTO).toList();
     }

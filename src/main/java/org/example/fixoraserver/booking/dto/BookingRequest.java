@@ -10,5 +10,6 @@ public record BookingRequest (
         String preferredWindow,
         String category,
         String bookingStatus,
-        String videoInput
+        String videoInput,
+        String professionalId
 ){}

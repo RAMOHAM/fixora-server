@@ -12,5 +12,6 @@ public record BookingResponse (
         String preferredWindow,
         String category,
         String videoInput,
-        BookingStatus bookingStatus
+        BookingStatus bookingStatus,
+        String professionalId
 ){}
