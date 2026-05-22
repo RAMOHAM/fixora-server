@@ -34,6 +34,10 @@ public class BookingService {
         return bookingRepository.findAll().stream().map(bookingMapper::toResponse).toList();
     }
 
+    public void deleteBooking(String bookingId) {
+        bookingRepository.deleteById(parseBookingId(bookingId));
+    }
+
     public BookingResponse changeBookingStatus(String bookingId, BookingStatus status) {
         Booking booking = bookingRepository.findById(parseBookingId(bookingId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Booking not found"));

@@ -42,4 +42,15 @@ public class BookingController {
     public ResponseEntity<@NonNull BookingResponse> cancelBookingById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(bookingService.updateBookingStatus(id, BookingStatus.CANCELLED));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<@NonNull Void> deleteBookingById(@PathVariable String id) {
+        bookingService.deleteBooking(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+
+
 }
