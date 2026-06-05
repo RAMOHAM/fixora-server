@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/booking")
@@ -44,13 +45,8 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<@NonNull Void> deleteBookingById(@PathVariable String id) {
+    public ResponseEntity<@NonNull Map<String, Object>> deleteBookingById(@PathVariable String id) {
         bookingService.deleteBooking(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(Map.of("ok", true, "bookingId", id));
     }
-
-
-
-
-
 }
