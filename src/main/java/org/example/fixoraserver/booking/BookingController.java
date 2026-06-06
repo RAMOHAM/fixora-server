@@ -2,6 +2,7 @@ package org.example.fixoraserver.booking;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.fixoraserver.booking.dto.BookingRequest;
 import org.example.fixoraserver.booking.dto.BookingResponse;
 import org.example.fixoraserver.email.EmailService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("api/booking")
 @RequiredArgsConstructor
@@ -33,7 +35,17 @@ public class BookingController {
     }
 
     @PatchMapping("/{id}/confirm")
-    public ResponseEntity<@NonNull BookingResponse> confirmBookingById(@PathVariable String id, @RequestParam String professionalId) {
+    public ResponseEntity<@NonNull BookingResponse> confirmBookingById(
+            @PathVariable String id,
+            @RequestParam(required = false) String professionalId
+    ) {
+        log.info("Confirming booking with id: {} with assigned professional: {}", id, professionalId);
+
+        if (professionalId == null || professionalId.isBlank()) {
+            log.error("professionalId is missing or blank!");
+            return ResponseEntity.badRequest().build();
+        }
+
         bookingService.updateBookingStatus(id, BookingStatus.CONFIRMED);
         BookingResponse updatedBooking = bookingService.assignProfessionalToBooking(id, professionalId);
         return ResponseEntity.status(HttpStatus.OK).body(updatedBooking);
