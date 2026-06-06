@@ -1,6 +1,7 @@
 package org.example.fixoraserver.booking.dto;
 
 import org.example.fixoraserver.booking.BookingStatus;
+import org.example.fixoraserver.professional.Professional;
 
 public record BookingResponse (
         String id,
